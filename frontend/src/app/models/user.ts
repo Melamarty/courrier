@@ -1,14 +1,11 @@
-import { Courrier } from './courrier';
+
 
 export interface User {
-  id?: number;
+  id: number;
+  login: string;
   nom: string;
   prenom: string;
-  email: string;
-  modeDePass: string;
   role: string;
   service: string;
-  va: string;
-  dateDernierConexion: Date;
-  courriers?: Courrier[];  // One-to-many relationship
+  dateDernierConnexion: string;   // ISO date string → convert with new Date() if needed
 }

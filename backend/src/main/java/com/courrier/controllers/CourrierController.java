@@ -42,9 +42,15 @@ public class CourrierController {
             courrier.setAnnotation(details.getAnnotation());
             courrier.setDate(details.getDate());
             courrier.setDestinataire(details.getDestinataire());
-            courrier.setDestination(details.getDestination());
+            courrier.setDestinateurSource(details.getDestinateurSource());
+            courrier.setType(details.getType());
             courrier.setEmmeteur(details.getEmmeteur());
             courrier.setFichier(details.getFichier());
+            courrier.setStatus(details.getStatus());
+            courrier.setModifiedAt(details.getModifiedAt());
+            courrier.setCreatedAt(details.getCreatedAt());
+            courrier.setModiedBy(details.getModiedBy());
+            courrier.setUser(details.getUser());
             return courrierRepository.save(courrier);
         }
         return null;

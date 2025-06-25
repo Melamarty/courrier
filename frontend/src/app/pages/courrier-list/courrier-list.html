@@ -1,0 +1,27 @@
+<h2>Courriers</h2>
+
+<div *ngIf="loading">Loading…</div>
+<div *ngIf="error">{{ error }}</div>
+
+<table *ngIf="!loading && !error" class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Objet</th>
+      <th>Date</th>
+      <th>Destinataire</th>
+      <th>Type</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of courriers">
+      <td>{{ c.id }}</td>
+      <td>{{ c.objet }}</td>
+      <td>{{ c.date | date:'shortDate' }}</td>
+      <td>{{ c.destinataire }}</td>
+      <td>{{ c.type }}</td>
+      <td>{{ c.status }}</td>
+    </tr>
+  </tbody>
+</table>

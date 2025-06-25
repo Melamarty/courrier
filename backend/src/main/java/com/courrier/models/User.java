@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,7 +25,10 @@ public class User {
     @Column(name = "dateDernierConnexion")
     private LocalDateTime dateDernierConnexion;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",
+               cascade = CascadeType.ALL,
+               fetch   = FetchType.LAZY)
+    @JsonManagedReference 
     private List<Courrier> courriers;
 
     public User() {}
@@ -31,8 +37,6 @@ public class User {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
 
     public String getModeDePass() { return modeDePass; }
     public void setModeDePass(String modeDePass) { this.modeDePass = modeDePass; }
@@ -49,8 +53,6 @@ public class User {
     public String getService() { return service; }
     public void setService(String service) { this.service = service; }
 
-    public String getVa() { return va; }
-    public void setVa(String va) { this.va = va; }
 
     public LocalDateTime getDateDernierConnexion() { return dateDernierConnexion; }
     public void setDateDernierConnexion(LocalDateTime dateDernierConnexion) { this.dateDernierConnexion = dateDernierConnexion; }
