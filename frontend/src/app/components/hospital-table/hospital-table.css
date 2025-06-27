@@ -1,0 +1,78 @@
+
+    :root {
+      --card-radius: 0.75rem;
+      --shadow: 0 4px 12px rgba(0,0,0,.08);
+      --blue-600: #2563eb;
+      --slate-50:  #f8fafc;
+      --slate-100: #f1f5f9;
+    }
+    /* ------------- your CSS (verbatim) ------------- */
+    .table-card {
+      background: #fff;
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .table-header h2 {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 700;
+      color: #2E2653;
+    }
+  .add-mail-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;                 /* space between icon and text */
+    background: var(--blue-600);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.55rem 1.25rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .add-mail-btn:hover,
+  .add-mail-btn:focus {
+    background: #1d4ed8;         /* slightly darker on hover/focus */
+  }
+
+  .add-mail-btn .material-icons-outlined {
+    font-size: 20px;             /* icon size */
+    line-height: 1;
+  }
+  .table-card {
+    border: 1px solid #e2e8f0;
+  }
+    .table-header button:hover {
+      background: #1d4ed8;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table th {
+      /*background: var(--blue-600);*/
+      color: #58596F;;
+      text-align: left;
+      padding: 0.75rem;
+      font-weight: 800;
+       font-size: 23px;
+      
+    }
+    .table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+      font-weight: 600;
+      color: #58596F;
+      font-size: 23px;
+    }
+    .table tr:nth-child(even) td { background: var(--slate-50); }
+    .table tr:hover td           { background: var(--slate-100); }

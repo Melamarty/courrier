@@ -1,0 +1,43 @@
+/* Layout for the row of cards */
+.stat-cards {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+/* Individual card */
+.stat-card {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #d1d5db;      /* light gray */
+  border-radius: 8px;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+}
+
+/* Icon at the top */
+.icon {
+  font-size: 32px;                /* icon size */
+  color: #2563eb;                 /* blue-600 */
+  margin-bottom: 0.5rem;
+}
+
+/* Bold number */
+.number {
+  font-size: 1.50rem;
+  font-weight: 700;
+  color: #2B1C5A;                 /* same blue for consistency */
+}
+
+/* Caption / label */
+.label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #464157;                 /* gray-700 */
+}

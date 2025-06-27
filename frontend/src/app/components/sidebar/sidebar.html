@@ -1,0 +1,56 @@
+<nav class="sidebar">
+  <!-- Logo / title -->
+  <h1>CHU&nbsp;Fès</h1>
+
+  <!-- Main navigation -->
+  <ul>
+    <li>
+      <a  routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-icons">dashboard</span>
+        Tableau&nbsp;de&nbsp;bord
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/courriers-entrants" routerLinkActive="active">
+        <span class="material-icons">inbox</span>
+        Courriers&nbsp;entrants
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/courriers-sortants" routerLinkActive="active">
+        <span class="material-icons">outbox</span>
+        Courriers&nbsp;sortants
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/statistiques" routerLinkActive="active">
+        <span class="material-icons">insights</span>
+        Statistiques
+      </a>
+    </li>
+  </ul>
+
+  <!-- Footer actions (stick to bottom thanks to flex column) -->
+  <ul>
+    <li>
+      <a routerLink="/parametres" routerLinkActive="active">
+        <span class="material-icons">settings</span>
+        Paramètres
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/logout">
+        <span class="material-icons">logout</span>
+        Déconnexion
+      </a>
+    </li>
+  </ul>
+</nav>
+
+

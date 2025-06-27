@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tableau des hôpitaux</title>
+
+  <!-- If your CSS isn’t inlined, import it here -->
+  <!-- <link rel="stylesheet" href="hospitaltable.css" /> -->
+
+  <!-- Quick demo reset for the Tailwind-like color variables you referenced.
+       Remove this <style> block if you already define these elsewhere. -->
+
+</head>
+<body>
+  <!-- Card wrapper -->
+  <div class="table-card">
+    <!-- Flex header -->
+    <div class="table-header">
+      <h2>Tableau des hôpitaux</h2>
+      <button class="add-mail-btn">
+        <span class="material-icons-outlined">add</span>
+        Ajouter un courrier
+      </button>
+    </div>
+
+    <!-- Data grid -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Hôpital</th>
+          <th>Entrants</th>
+          <th>Sortants</th>
+          <th>En attente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of hospitals">
+          <td>{{ h.name }}</td>
+          <td>{{ h.entrants }}</td>
+          <td>{{ h.sortants }}</td>
+          <td>{{ h.enAttente }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Optional: move the script that defines openAddCourrierModal() here -->
+</body>
+</html>

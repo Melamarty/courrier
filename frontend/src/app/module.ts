@@ -1,13 +1,14 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { App } from './app';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    // Your components
   ],
   imports: [
     HttpClientModule, // Import HttpClientModule here
+    RouterModule
   ],
   providers: [],
   //bootstrap: [App],
