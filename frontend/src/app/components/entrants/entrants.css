@@ -1,0 +1,117 @@
+/* ===== page & typography ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f3f5fa;                 /* subtle grey all around */
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #374151;                      /* slate‑600 */
+  padding: 2rem;
+}
+
+/* ===== main white card ===== */
+.container {
+  background: #ffffff;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #e5e7eb;      /* hairline border */
+}
+
+/* heading */
+.container h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1e293b;                      /* slate‑800 */
+}
+
+/* ===== filter + search row ===== */
+.search-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+
+/* ––– filter drop‑down ––– */
+.filter-select {
+  position: relative;
+  padding: .45rem .9rem .45rem 2.5rem; /* left padding = icon space  */
+  font-size: .95rem;
+  border: 1px solid #d1d5db;           /* grey‑300 */
+  border-radius: 4px;
+  background:
+    #ffffff
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='%234F566B' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 4.5A1.5 1.5 0 0 1 4.5 3h15a1.5 1.5 0 0 1 1.06 2.56L15 12.32v5.18a1.5 1.5 0 0 1-.768 1.317l-3 1.714A1.5 1.5 0 0 1 9 19.08V12.32L3.44 5.56A1.5 1.5 0 0 1 3 4.5z'/%3E%3C/svg%3E")
+    no-repeat .75rem center;
+  background-size: 18px;
+  appearance: none;                    /* hide default arrow (Chrome) */
+  cursor: pointer;
+}
+/* ––– filter drop‑down ––– */
+.filter-select option {
+  padding: .45rem .9rem;               /* same as input */
+  font-size: .95rem;
+  color: #374151;
+  cursor: pointer;                      /* slate‑600 */
+}
+.filter-select::-ms-expand { display: none; } /* hide default arrow (IE) */
+
+/* ––– search box ––– */
+.search-input {
+	border-radius: 8px;
+  width: 220px;
+  padding: .45rem .9rem .45rem 2.5rem; /* icon space */
+  font-size: .95rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background:
+    #ffffff
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='%234F566B' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M11 4a7 7 0 0 0-5.517 11.313l-2.9 2.9a1 1 0 1 0 1.414 1.414l2.9-2.9A7 7 0 1 0 11 4zm0 2a5 5 0 1 1 0 10A5 5 0 0 1 11 6z'/%3E%3C/svg%3E")
+    no-repeat .75rem center;
+  background-size: 18px;
+  outline: none;
+}
+.search-input::placeholder { color: #9ca3af; }
+
+/* ===== table ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* header row */
+thead th {
+  padding: .75rem 1rem;
+  background: #f1f5fb;                /* very light blue‑grey */
+  font-size: .95rem;
+  font-weight: 600;
+  color: #1e293b;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* body rows */
+tbody td {
+  padding: .75rem 1rem;
+  font-size: .95rem;
+  border-bottom: 1px solid #f1f5fb;   /* faint row divider */
+}
+
+tbody tr:hover { background: #f8fafc; }
+
+/* drop last divider */
+tbody tr:last-child td { border-bottom: none; }
+
+/* status colouring (add class in HTML if you want) */
+.status-envoyee  { color: #1d4ed8; }   /* blue */
+.status-brouillon{ color: #6b7280; }   /* grey */
+
+.status-envoyee  { color: #1d4ed8; } 
+.status-brouillon{ color: #6b7280; } 
+

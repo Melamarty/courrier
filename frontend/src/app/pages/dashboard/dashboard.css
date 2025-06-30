@@ -39,12 +39,12 @@ body {
   height: 100vh;   /* optional but common */
 }
 
-.sidebar {
+.sidebare {
   width: var(--sidebar-width);
   flex: 0 0 var(--sidebar-width);
 }
 
-.content-area {
+.content-areae {
   /* this is the main content area */
   /*width : calc(100% - var(--sidebar-width));*/
   margin-left: 240px;
@@ -54,7 +54,7 @@ body {
   flex-direction: column;
 }
 
-.topbar {
+/*.topbar {
   height: 64px;
   background: #eee;
   padding: 0 1.5rem;
@@ -65,7 +65,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
-}
+}*/
 
 .main-content {
   padding: 1.5rem;

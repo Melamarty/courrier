@@ -1,0 +1,45 @@
+<div class="container">
+  <h1>Tableau des Messages</h1>
+
+  <div class="search-filter">
+    <!-- status dropdown -->
+	<select [(ngModel)]="filterStatus" class="filter-select">
+		<option value="">All</option>
+		<option value="Envoyée">Entrant</option>
+		<option value="Brouillon">En cours</option>
+		<option value="Brouillon">Envoyee</option>
+	</select>
+
+    <!-- search box -->
+    <input
+      type="text"
+      placeholder="Rechercher..."
+      class="search-input"
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Destinataire</th>
+        <th>Destinateur</th>
+        <th>Emeteur</th>
+        <th>Annotation</th>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of courrierList">
+        <td>{{ row.destinataire }}</td>
+        <td>{{ row.destinateurSource }}</td>
+        <td>{{ row.emmeteur }}</td>
+        <td>{{ row.annotation}}</td>
+        <td>{{ row.type }}</td>
+        <td [ngClass]="statusClass(row.status)">{{ row.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

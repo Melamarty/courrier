@@ -1,0 +1,13 @@
+<!-- layout.component.html -->
+<div class="layout">
+  <app-sidebar></app-sidebar>
+
+  <div class="content-area">
+    <app-topbar></app-topbar>
+
+    <main class="main-content">
+      <!-- only this outlet! -->
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

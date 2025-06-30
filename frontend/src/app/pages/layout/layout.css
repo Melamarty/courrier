@@ -1,0 +1,32 @@
+.sidebar {
+  width: var(--sidebar-width);
+  flex: 0 0 var(--sidebar-width);
+}
+
+.content-area {
+  /* this is the main content area */
+  /*width : calc(100% - var(--sidebar-width));*/
+  margin-left: 240px;
+  flex: 1 1 auto;
+  min-width: 0;       /* prevents overflow */
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 64px;
+  background: #eee;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.main-content {
+  padding: 1.5rem;
+  overflow-y: auto;   /* the scroll area */
+}
