@@ -6,75 +6,89 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-
 @Entity
 @Table(name = "courriers")
 public class Courrier {
 
+    /* ---------- Primary key ---------- */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCourrier;
+    private Integer id;                           // DB surrogate key (not shown in the form)
 
-    private String objet;
-    private String annotation;
-    private LocalDate date;
-    private String destinataire;
-    private String destinateurSource;
-    private String type;
-    private String status;
-    private LocalDateTime modified_at;
-    private LocalDateTime created_at;
-    private String emmeteur;
-    private String fichier;
-    private int modied_by;
+    /* ---------- 1. Référence interne ---------- */
+    @Column(name = "internal_ref")
+    private String internalRef;                   // <input id="search-ref">
 
+    /* ---------- 2. Numéro courrier ---------- */
+    @Column(name = "numero_courrier")
+    private String numeroCourrier;                // <input id="num-courrier">
+
+    /* ---------- 3. Date ---------- */
+    private LocalDate date;                       // <input id="date" type="date">
+
+    /* ---------- 4. Destinateur (Sous‑direction) ---------- */
+    private String destinateur;                   // <input id="destinateur">
+
+    /* ---------- 5. Destinataire : interne / externe ---------- */
+    private boolean interne;                      // <input id="interne" type="checkbox">
+    private boolean externe;                      // <input id="externe" type="checkbox">
+
+    /* ---------- 6. Diffusion interne ? ---------- */
+    @Column(name = "diffusion_interne")
+    private boolean diffusionInterne;             // <input id="diffusion" type="checkbox">
+
+    /* ---------- 7. Référence externe ---------- */
+    @Column(name = "reference_externe")
+    private String referenceExterne;              // <input id="ref-ext">
+
+    /* ---------- Audit columns (kept from your original model) ---------- */
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
+
+    /* ---------- Author / owner relation (unchanged) ---------- */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonBackReference  
+    @JsonBackReference
     private User user;
 
+    /* ---------- Constructors ---------- */
     public Courrier() {}
 
+    /* ---------- Getters & setters ---------- */
+    public Integer getId() { return id; }
 
-    public int getid() { return idCourrier; }
-    public void setid(int num) { this.idCourrier = num; }
+    public String getInternalRef() { return internalRef; }
+    public void setInternalRef(String internalRef) { this.internalRef = internalRef; }
 
-    public String getObjet() { return objet; }
-    public void setObjet(String objet) { this.objet = objet; }
-
-    public String getAnnotation() { return annotation; }
-    public void setAnnotation(String annotation) { this.annotation = annotation; }
+    public String getNumeroCourrier() { return numeroCourrier; }
+    public void setNumeroCourrier(String numeroCourrier) { this.numeroCourrier = numeroCourrier; }
 
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
 
-    public String getDestinataire() { return destinataire; }
-    public void setDestinataire(String destinataire) { this.destinataire = destinataire; }
+    public String getDestinateur() { return destinateur; }
+    public void setDestinateur(String destinateur) { this.destinateur = destinateur; }
 
-    public String getDestinateurSource() { return destinateurSource; }
-    public void setDestinateurSource(String destinateurSource) { this.destinateurSource = destinateurSource; }
+    public boolean isInterne() { return interne; }
+    public void setInterne(boolean interne) { this.interne = interne; }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public boolean isExterne() { return externe; }
+    public void setExterne(boolean externe) { this.externe = externe; }
 
-    public String getEmmeteur() { return emmeteur; }
-    public void setEmmeteur(String emmeteur) { this.emmeteur = emmeteur; }
+    public boolean isDiffusionInterne() { return diffusionInterne; }
+    public void setDiffusionInterne(boolean diffusionInterne) { this.diffusionInterne = diffusionInterne; }
 
-    public String getFichier() { return fichier; }
-    public void setFichier(String fichier) { this.fichier = fichier; }
+    public String getReferenceExterne() { return referenceExterne; }
+    public void setReferenceExterne(String referenceExterne) { this.referenceExterne = referenceExterne; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public int getModiedBy() { return modied_by; }
-    public void setModiedBy(int modied_by) { this.modied_by = modied_by; }
-
-    public LocalDateTime getModifiedAt() { return modified_at; }
-    public void setModifiedAt(LocalDateTime modified_at) { this.modified_at = modified_at; }
-
-    public LocalDateTime getCreatedAt() { return created_at; }
-    public void setCreatedAt(LocalDateTime created_at) { this.created_at = created_at; }
-
+    public LocalDateTime getModifiedAt() { return modifiedAt; }
+    public void setModifiedAt(LocalDateTime modifiedAt) { this.modifiedAt = modifiedAt; }
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }

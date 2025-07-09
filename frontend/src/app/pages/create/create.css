@@ -1,0 +1,160 @@
+/* ==========  DESIGN TOKENS  ========== */
+:root {
+  --bg-surface: #fdfaf4;          /* warm off‑white */
+  --bg-accent: #0d6efd;           /* blue accent */
+  --bg-accent-light: #e7f1ff;     /* focus ring */
+  --text-main: #333;
+  --text-muted: #6c757d;
+  --text-danger: #e63946;
+  --radius: .5rem;
+  --gap: 1rem;
+  --transition: .15s ease-out;
+  font-size: 16px;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* ==========  WRAPPER  ========== */
+.courrier-form {
+  width: min(42rem, 100%);
+  margin: 2rem auto;
+  padding: 2rem 2.25rem;
+  background: var(--bg-surface);
+  border-radius: var(--radius);
+  box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, .15);
+}
+
+.courrier-form h2 {
+  font-size: 1.35rem;
+  margin: 0 0 1.25rem 0;
+}
+
+/* ==========  FORM LAYOUT  ========== */
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+}
+
+.full { grid-column: 1 / -1; }
+.part { margin-right: 20px;}
+
+label {
+  display: block;
+  font-size: .875rem;
+  color: var(--text-muted);
+  margin-bottom: .25rem;
+  margin-top: 12px;
+}
+
+input {
+  border-radius: 8px;
+}
+
+input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px rgba(34, 121, 252, 0.25);
+  /*background-color: #accaf6;*/
+}
+input[type="text"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: .55rem .75rem;
+  font-size: .95rem;
+  color: var(--text-main);
+  background: #fff;
+  border: 1px solid #d8dee4;
+  outline: none;
+  transition: border var(--transition), box-shadow var(--transition);
+}
+
+/*input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  border-color: var(--bg-accent);
+  box-shadow: 0 0 0 2px var(--bg-accent-light);
+}*/
+
+/* ==========  INPUT GROUP WITH SEARCH BUTTON  ========== */
+.input-group {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.search-btn {
+  border: none;
+  background: var(--bg-accent);
+  color: #fff;
+  padding: .55rem .9rem;
+  font-size: 1rem;
+  line-height: 1;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.search-btn:hover { background: #0950c7; }
+
+.search-btn .material-icons { font-size: 1.2rem; }
+
+/* ==========  CHECKBOXES  ========== */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.checkbox-row input {
+  accent-color: var(--bg-accent);
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.checkbox-row label {
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+/* ==========  HELPER TEXT  ========== */
+.helper {
+  font-size: .75rem;
+  display: block;
+  margin-top: .25rem;
+}
+
+.helper.danger { color: var(--text-danger); }
+
+/* ==========  ACTION BUTTONS  ========== */
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 3rem;
+  margin-top: .5rem;
+}
+
+/* base button */
+.action-btn {
+  border: none;
+  padding: .6rem 1.1rem;
+  font-size: .95rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  font-size: 19px;
+}
+
+/* primary style */
+.action-btn--primary {
+  background: #0d6efd;
+  border: 1px solid #0d6efd;
+  color: #fff;
+}
+.action-btn--primary:hover { background: #0950c7; }
+
+/* outline / cancel style */
+.action-btn--outline {
+  background: transparent;
+  color: #e63946;
+}
+.action-btn--outline:hover { background: rgba(230, 57, 70, .1); }

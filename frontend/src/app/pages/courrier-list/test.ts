@@ -1,19 +1,19 @@
-import { Component , OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-courrier-list',
-  standalone: true,                // 👈 required
+  standalone: true,
   template: `<button (click)="hello()">Test</button>`,
   styleUrls: ['./courrier-list.css'],
   imports: [CommonModule, RouterModule]
 })
 export class CourrierListComponent implements OnInit {
-    ngOnInit() {
+  ngOnInit() {
     console.log('Component initialized');
   }
-  title= "hello"
+
   hello() {
     console.log("hello() called");
     alert('Hello from CourrierListComponent');

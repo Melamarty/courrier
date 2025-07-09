@@ -1,0 +1,112 @@
+<div class="courrier-form">
+  <h2>Nouveau Courrier</h2>
+
+  <form #courrierForm="ngForm" (ngSubmit)="onSubmit()" novalidate >
+    <!-- Recherche référence interne -->
+    <div class="full">
+      <label for="search-ref"> Numéro de référence interne</label>
+      <div class="input-group">
+        <input
+          type="text"
+          id="search-ref"
+          name="internalRef"
+          placeholder="Numéro de référence"
+          [(ngModel)]="courrier.internalRef"
+        />
+      </div>
+      <small class="helper danger">*Ce courrier n’a aucune référence.</small>
+    </div>
+
+    <!-- Numéro courrier -->
+    <div class="part">
+      <label for="num-courrier">Numéro courrier</label>
+      <input
+        type="text"
+        id="num-courrier"
+        name="numeroCourrier"
+        placeholder="D04113‑2"
+        [(ngModel)]="courrier.numeroCourrier"
+      />
+    </div>
+
+    <!-- Date -->
+    <div class="part">
+      <label for="date">Date</label>
+      <input
+        type="date"
+        id="date"
+        name="date"
+        [(ngModel)]="courrier.date"
+        value="2025-05-28"
+      />
+    </div>
+
+    <!-- Destinateur -->
+    <div class="full">
+      <label for="destinateur">Destinateur (Sous‑direction)</label>
+      <input
+        type="text"
+        id="destinateur"
+        name="destinateur"
+        placeholder="Choisir Destinateur…"
+        [(ngModel)]="courrier.destinateur"
+      />
+    </div>
+
+    <!-- Destinataires checkboxes -->
+    <div class="checkbox-row full">
+      <input
+        type="checkbox"
+        id="interne"
+        name="interne"
+        [(ngModel)]="courrier.interne"
+      />
+      <label for="interne">Interne</label>
+
+      <input
+        type="checkbox"
+        id="externe"
+        name="externe"
+        [(ngModel)]="courrier.externe"
+      />
+      <label for="externe">Externe</label>
+    </div>
+
+    <!-- Diffusion interne -->
+    <div class="checkbox-row full">
+      <input
+        type="checkbox"
+        id="diffusion"
+        name="diffusionInterne"
+        [(ngModel)]="courrier.diffusionInterne"
+      />
+      <label for="diffusion">Diffusion interne ?</label>
+    </div>
+
+    <!-- Référence externe -->
+    <div class="full">
+      <label for="ref-ext">Numéro de référence externe</label>
+      <input
+        type="text"
+        id="ref-ext"
+        name="referenceExterne"
+        placeholder="Référence externe"
+        [(ngModel)]="courrier.referenceExterne"
+      />
+    </div>
+
+    <!-- Action buttons -->
+    <div class="actions">
+      <button type="button" class="action-btn action-btn--outline">
+        Annuler
+      </button>
+      <button type="submit" class="action-btn action-btn--primary">
+        Créer
+      </button>
+      <!-- You can add click handlers if you want 'Créer & Envoyer' to do something else -->
+      <button  type="submit" class="action-btn action-btn--primary">
+        Créer & Envoyer
+      </button>
+    </div>
+  </form>
+</div>

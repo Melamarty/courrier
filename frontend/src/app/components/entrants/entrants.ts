@@ -18,6 +18,7 @@ interface CourrierRow {
   templateUrl: './entrants.html',
   styleUrl: './entrants.css'
 })
+
 export class Entrants {
 
 
