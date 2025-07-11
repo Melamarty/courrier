@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { App } from './app';
 import { RouterModule } from '@angular/router';
@@ -12,7 +12,7 @@ import { routes } from './app.routes';
   declarations: [
   ],
   imports: [
-    //HttpClient, // Import HttpClientModule here
+    HttpClientModule,
     RouterModule,
     BrowserModule,
     RouterModule.forRoot(routes)

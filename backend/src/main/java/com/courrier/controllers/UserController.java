@@ -38,6 +38,7 @@ public class UserController {
     public User updateUser(@PathVariable int id, @RequestBody User userDetails) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
+            user.setLogin(userDetails.getLogin());
             user.setNom(userDetails.getNom());
             user.setModeDePass(userDetails.getModeDePass());
             user.setPrenom(userDetails.getPrenom());

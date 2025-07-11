@@ -7,13 +7,14 @@ import { Entrants } from './components/entrants/entrants';
 import { Sortants } from './components/sortants/sortants';
 import { Create } from './pages/create/create';
 import { Auth } from './pages/auth/auth';
+import { AuthGuard } from './auth-guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   {path: 'login', component:Auth},
   {
     path: 'courrier',
-    component: Layout,          // shell
+    component: Layout,  
     children: [
       { path: 'courrier/sortants', component: Sortants },
       { path: 'entrants', component: Entrants },
@@ -21,7 +22,7 @@ export const routes: Routes = [
       {path: 'create', component:Create },
     ]
   },
-  {path: 'dashboard', component: Dashboard},
+  {path: 'dashboard', component: Dashboard, canActivate: [AuthGuard]},
   { path: 'courriers', component: Courriers },
   {path: 'tests', loadComponent: () =>
       import('./pages/courrier-list/courrier-list')
