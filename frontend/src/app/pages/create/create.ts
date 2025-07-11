@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { Topbar } from '../../components/topbar/topbar';
-import { Sidebar } from '../../components/sidebar/sidebar';
 
 @Component({
   selector: 'app-create',
@@ -17,8 +15,6 @@ import { Sidebar } from '../../components/sidebar/sidebar';
     CommonModule,
     FormsModule,
     RouterModule,
-    Topbar,
-    Sidebar
   ]
 })
 export class Create implements OnInit {
