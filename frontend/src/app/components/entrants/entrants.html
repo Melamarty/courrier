@@ -1,44 +1,141 @@
 <div class="container">
-  <h1>Tableau des Messages</h1>
+  <h1>Tableau des Courriers</h1>
 
   <div class="search-filter">
     <!-- status dropdown -->
-	<select  class="filter-select">
-		<option value="">All</option>
-		<option value="Envoyée">Entrant</option>
-		<option value="Brouillon">En cours</option>
-		<option value="Brouillon">Envoyee</option>
-	</select>
+    <select class="filter-select" [(ngModel)]="statusFilter" (change)="onFilterChange()">
+      <option value="">All</option>
+      <option value="Entrants">Entrants</option>
+      <option value="Sortants">Sortants</option>
+    </select>
 
     <!-- search box -->
     <input
       type="text"
       placeholder="Rechercher..."
       class="search-input"
+      [(ngModel)]="searchTerm"
+      (input)="onSearchChange()"
     />
   </div>
 
   <table>
     <thead>
       <tr>
-        <th>Destinataire</th>
+        <th>ID</th>
+        <th>Référence Interne</th>
+        <th>Numéro Courrier</th>
+        <th>Date</th>
         <th>Destinateur</th>
-        <th>Emeteur</th>
-        <th>Annotation</th>
         <th>Type</th>
-        <th>Status</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let row of courrierList">
-        <td>{{ row.destinataire }}</td>
-        <td>{{ row.destinateurSource }}</td>
-        <td>{{ row.emmeteur }}</td>
-        <td>{{ row.annotation}}</td>
-        <td>{{ row.type }}</td>
-        <td [ngClass]="statusClass(row.status)">{{ row.status }}</td>
+      <tr *ngFor="let row of filteredCourrierList" [class.validated-row]="isCourrierValidated(row)">
+        <td>{{ row.id }}</td>
+        <td>{{ row.internalRef }}</td>
+        <td>{{ row.numeroCourrier }}</td>
+        <td>{{ row.date }}</td>
+        <td>{{ row.destinateur }}</td>
+        <td>
+          <span class="type-badge" [class.validated]="isCourrierValidated(row)">
+            {{ row.type }}
+            <i class="fas fa-check-circle" *ngIf="isCourrierValidated(row)"></i>
+          </span>
+        </td>
+        <td class="actions">
+          <button class="btn btn-success" title="Valider" (click)="openValidationPopup(row)" *ngIf="!isCourrierValidated(row)">
+            <i class="fas fa-check"></i>
+          </button>
+          <button class="btn btn-danger" title="Supprimer" (click)="deleteCourrier(row)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Validation Popup Modal -->
+<div class="modal-overlay" *ngIf="showPopup" (click)="closePopup()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Validation du Courrier</h2>
+      <button class="close-btn" (click)="closePopup()">&times;</button>
+    </div>
+    
+    <div class="modal-body" *ngIf="selectedCourrier">
+      <div class="courrier-info">
+        <h3>Informations du Courrier</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>ID:</label>
+            <span>{{ selectedCourrier.id }}</span>
+          </div>
+          <div class="info-item">
+            <label>Référence Interne:</label>
+            <span>{{ selectedCourrier.internalRef }}</span>
+          </div>
+          <div class="info-item">
+            <label>Numéro Courrier:</label>
+            <span>{{ selectedCourrier.numeroCourrier }}</span>
+          </div>
+          <div class="info-item">
+            <label>Date:</label>
+            <span>{{ selectedCourrier.date }}</span>
+          </div>
+          <div class="info-item">
+            <label>Destinateur:</label>
+            <span>{{ selectedCourrier.destinateur }}</span>
+          </div>
+          <div class="info-item">
+            <label>Type:</label>
+            <span>{{ selectedCourrier.type }}</span>
+          </div>
+          <div class="info-item">
+            <label>Interne:</label>
+            <span>{{ selectedCourrier.interne ? 'Oui' : 'Non' }}</span>
+          </div>
+          <div class="info-item">
+            <label>Externe:</label>
+            <span>{{ selectedCourrier.externe ? 'Oui' : 'Non' }}</span>
+          </div>
+          <div class="info-item">
+            <label>Référence Externe:</label>
+            <span>{{ selectedCourrier.referenceExterne || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="validation-form">
+        <h3>Validation</h3>
+        
+        <div class="form-group">
+          <label for="annotation">Annotation *</label>
+          <textarea 
+            id="annotation"
+            [(ngModel)]="annotation"
+            placeholder="Entrez votre annotation..."
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="diffusionType">Type de Diffusion</label>
+          <select id="diffusionType" [(ngModel)]="diffusionType">
+            <option value="interne">Interne</option>
+            <option value="externe">Externe</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closePopup()">Annuler</button>
+      <button class="btn btn-primary" (click)="validateCourrier()">Valider</button>
+    </div>
+  </div>
 </div>

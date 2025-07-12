@@ -5,11 +5,19 @@ import { Courrier } from '../models/courrier';
 
 @Injectable({ providedIn: 'root' })
 export class CourrierService {
-  private readonly api = '/api/courriers';   // will be proxied ↓ or hit CORS-enabled backend
+  private readonly api = 'http://localhost:9090/api/courriers';
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Courrier[]> {
     return this.http.get<Courrier[]>(this.api);
+  }
+
+  updateCourrier(id: number, data: any): Observable<Courrier> {
+    return this.http.put<Courrier>(`${this.api}/${id}`, data);
+  }
+
+  deleteCourrier(id: number): Observable<any> {
+    return this.http.delete(`${this.api}/${id}`);
   }
 }
