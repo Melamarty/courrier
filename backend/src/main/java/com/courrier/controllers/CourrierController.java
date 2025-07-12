@@ -40,6 +40,7 @@ public class CourrierController {
         courrierRepository.deleteById(id);
     }
 
+
     /* ---------- UPDATE ---------- */
     @PutMapping("/{id}")
     public Courrier updateCourrier(@PathVariable Integer id,
@@ -57,6 +58,8 @@ public class CourrierController {
             courrier.setReferenceExterne(details.getReferenceExterne());
             courrier.setModifiedAt(details.getModifiedAt());   // if you keep manual auditing
             courrier.setUser(details.getUser());
+            courrier.setType(details.getType());
+            courrier.setAnnotation(details.getAnnotation());
 
             return courrierRepository.save(courrier);
         }).orElse(null);

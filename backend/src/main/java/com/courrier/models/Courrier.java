@@ -39,7 +39,13 @@ public class Courrier {
 
     /* ---------- 7. Référence externe ---------- */
     @Column(name = "reference_externe")
-    private String referenceExterne;              // <input id="ref-ext">
+    private String referenceExterne; 
+                 // <input id="ref-ext">
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "annotaion")
+    private String annotation;              // <input id="ref-ext">
 
     /* ---------- Audit columns (kept from your original model) ---------- */
     @Column(name = "created_at", updatable = false)
@@ -47,6 +53,8 @@ public class Courrier {
 
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
+
+    
 
     /* ---------- Author / owner relation (unchanged) ---------- */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -92,4 +100,10 @@ public class Courrier {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+
+    public String getAnnotation() { return annotation; }
+    public void setAnnotation(String annotation) { this.annotation = annotation;}
 }
