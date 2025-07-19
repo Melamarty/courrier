@@ -108,12 +108,12 @@ def get_classification_confidence(text, threshold=0.3):
         # Calculate cosine similarity between text and category keywords
         category_similarities = cosine_similarity(text_embedding, category_embeddings)
         
-        # Take the maximum similarity for this category
-        max_similarity = np.max(category_similarities)
+        # Take the maximum similarity for this category and convert to Python float
+        max_similarity = float(np.max(category_similarities))
         similarities[category] = max_similarity
     
     # Add normal category (inverse of best similarity)
     best_similarity = max(similarities.values())
-    similarities['normal'] = 1 - best_similarity if best_similarity < threshold else 0
+    similarities['normal'] = float(1 - best_similarity if best_similarity < threshold else 0)
     
     return similarities

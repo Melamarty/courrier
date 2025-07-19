@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Courriers } from './courriers/courriers';
 import { HomeComponent } from './home.component';  // import it
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Layout } from './pages/layout/layout';
@@ -8,6 +7,7 @@ import { Sortants } from './components/sortants/sortants';
 import { Create } from './pages/create/create';
 import { Auth } from './pages/auth/auth';
 import { AuthGuard } from './auth-guard';
+import { Model } from './pages/model/model';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +23,7 @@ export const routes: Routes = [
     ]
   },
   {path: 'dashboard', component: Dashboard, canActivate: [AuthGuard]},
-  { path: 'courriers', component: Courriers },
+  { path: 'analyze_courrier', component: Model },
   {path: 'tests', loadComponent: () =>
       import('./pages/courrier-list/courrier-list')
         .then(m => m.CourrierListComponent)
