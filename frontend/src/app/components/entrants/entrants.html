@@ -46,7 +46,7 @@
           </span>
         </td>
         <td class="actions">
-          <button class="btn btn-success" title="Valider" (click)="openValidationPopup(row)" *ngIf="!isCourrierValidated(row)">
+          <button class="btn btn-success" title="Valider" (click)="openValidationPopup(row)" *ngIf="!isCourrierValidated(row) && canValidate()">
             <i class="fas fa-check"></i>
           </button>
           <button class="btn btn-danger" title="Supprimer" (click)="deleteCourrier(row)">

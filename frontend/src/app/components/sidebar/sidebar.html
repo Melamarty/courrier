@@ -21,9 +21,9 @@
     </li>
 
     <li>
-      <a routerLink="/courriers-sortants" routerLinkActive="active">
-        <span class="material-icons">outbox</span>
-        Courriers&nbsp;sortants
+      <a routerLink="/courrier/analyze" routerLinkActive="active">
+        <span class="fa fa-robot"></span>
+        AI&nbsp;Analyzer
       </a>
     </li>
 
@@ -45,7 +45,7 @@
     </li>
 
     <li>
-      <a routerLink="/logout">
+      <a (click)="logout()" style="cursor: pointer;">
         <span class="material-icons">logout</span>
         Déconnexion
       </a>

@@ -1,227 +1,227 @@
-<div class="ai-analyzer-container">
-  <div class="header">
-    <h1 class="title">
-      <i class="fa fa-robot"></i>
-      Analyseur IA de Courriers
-    </h1>
-    <p class="subtitle">Téléchargez une image de courrier pour l'analyser automatiquement</p>
-  </div>
-
-  <div class="main-content">
-    <div class="upload-section">
-      <div class="upload-area" 
-           [class.has-file]="selectedFile" 
-           [class.dragover]="isDragOver"
-           (dragover)="onDragOver($event)"
-           (dragleave)="onDragLeave($event)"
-           (drop)="onDrop($event)">
-        <div class="upload-content" *ngIf="!selectedFile">
-          <i class="fa fa-cloud-upload"></i>
-          <h3>Glissez-déposez votre image ici</h3>
-          <p>ou cliquez pour sélectionner un fichier</p>
-          <input 
-            type="file" 
-            accept="image/*" 
-            (change)="onFileSelected($event)"
-            class="file-input"
-            id="fileInput"
-          >
-          <label for="fileInput" class="upload-button">
-            <i class="fa fa-folder-open"></i>
-            Choisir un fichier
-          </label>
+<!-- model.component.html with sidebar and topbar -->
+<div class="layout">
+  <app-sidebar></app-sidebar>
+  <div class="content-area">
+    <!--<app-topbar></app-topbar>-->
+    <main class="main-content">
+      <!-- AI Analyzer content starts here -->
+      <div class="ai-analyzer-container">
+        <div class="header">
+          <h1 class="title">
+            <i class="fa fa-robot"></i>
+            Analyseur IA de Courriers
+          </h1>
+          <p class="subtitle">Téléchargez une image de courrier pour l'analyser automatiquement</p>
         </div>
-
-        <div class="preview-content" *ngIf="selectedFile">
-          <div class="image-preview">
-            <img [src]="previewUrl" alt="Preview" class="preview-image">
-            <div class="file-info">
-              <p><strong>{{ selectedFile.name }}</strong></p>
-              <p>{{ (selectedFile.size / 1024 / 1024).toFixed(2) }} MB</p>
+        <div class="main-content">
+          <div class="upload-section">
+            <div class="upload-area" 
+                 [class.has-file]="selectedFile" 
+                 [class.dragover]="isDragOver"
+                 (dragover)="onDragOver($event)"
+                 (dragleave)="onDragLeave($event)"
+                 (drop)="onDrop($event)">
+              <div class="upload-content" *ngIf="!selectedFile">
+                <i class="fa fa-cloud-upload"></i>
+                <h3>Glissez-déposez votre image ici</h3>
+                <p>ou cliquez pour sélectionner un fichier</p>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  (change)="onFileSelected($event)"
+                  class="file-input"
+                  id="fileInput"
+                >
+                <label for="fileInput" class="upload-button">
+                  <i class="fa fa-folder-open"></i>
+                  Choisir un fichier
+                </label>
+              </div>
+              <div class="preview-content" *ngIf="selectedFile">
+                <div class="image-preview">
+                  <img [src]="previewUrl" alt="Preview" class="preview-image">
+                  <div class="file-info">
+                    <p><strong>{{ selectedFile.name }}</strong></p>
+                    <p>{{ (selectedFile.size / 1024 / 1024).toFixed(2) }} MB</p>
+                  </div>
+                </div>
+                <div class="preview-actions">
+                  <button class="btn btn-primary" (click)="analyzeCourrier()" [disabled]="isAnalyzing">
+                    <i class="fa fa-magic"></i>
+                    Analyser le Courrier
+                  </button>
+                  <button class="btn btn-secondary" (click)="resetAnalysis()">
+                    <i class="fa fa-refresh"></i>
+                    Nouvelle Image
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="preview-actions">
-            <button class="btn btn-primary" (click)="analyzeCourrier()" [disabled]="isAnalyzing">
-              <i class="fa fa-magic"></i>
-              Analyser le Courrier
-            </button>
-            <button class="btn btn-secondary" (click)="resetAnalysis()">
-              <i class="fa fa-refresh"></i>
-              Nouvelle Image
-            </button>
+          <!-- Error Message -->
+          <div class="error-message" *ngIf="errorMessage">
+            <i class="fa fa-exclamation-triangle"></i>
+            {{ errorMessage }}
+          </div>
+          <!-- Loading Animation -->
+          <div class="loading-section" *ngIf="isAnalyzing">
+            <div class="loading-container">
+              <div class="loading-spinner">
+                <div class="spinner"></div>
+              </div>
+              <h3>Analyse en cours...</h3>
+              <p>L'IA analyse votre courrier, veuillez patienter</p>
+              <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+          <!-- Analysis Results -->
+          <div class="results-section" *ngIf="analysisResult && !isAnalyzing">
+            <div class="results-header">
+              <h2>
+                <i class="fa fa-check-circle"></i>
+                Analyse Terminée
+              </h2>
+              <div class="confidence-badge">
+                <span class="confidence-label">Confiance:</span>
+                <span class="confidence-value">{{ (getHighestConfidence() * 100).toFixed(1) }}%</span>
+              </div>
+            </div>
+            <div class="results-grid">
+              <!-- Courrier Type -->
+              <div class="result-card type-card">
+                <div class="card-header">
+                  <i class="fa fa-tag"></i>
+                  <h3>Type de Courrier</h3>
+                </div>
+                <div class="card-content">
+                  <div class="type-badge" [class]="getCourrierTypeClass(analysisResult.email_type)">
+                    <i class="fa fa-file-text"></i>
+                    {{ getCourrierTypeLabel(analysisResult.email_type) }}
+                  </div>
+                </div>
+              </div>
+              <!-- Metadata -->
+              <div class="result-card metadata-card">
+                <div class="card-header">
+                  <i class="fa fa-info-circle"></i>
+                  <h3>Métadonnées</h3>
+                </div>
+                <div class="card-content">
+                  <div class="metadata-grid">
+                    <div class="metadata-item" *ngIf="analysisResult.metadata.sender_name">
+                      <label>Expéditeur:</label>
+                      <span>{{ analysisResult.metadata.sender_name }}</span>
+                    </div>
+                    <div class="metadata-item" *ngIf="analysisResult.metadata.sender_email">
+                      <label>Email Expéditeur:</label>
+                      <span>{{ analysisResult.metadata.sender_email }}</span>
+                    </div>
+                    <div class="metadata-item" *ngIf="analysisResult.metadata.recipient_name">
+                      <label>Destinataire:</label>
+                      <span>{{ analysisResult.metadata.recipient_name }}</span>
+                    </div>
+                    <div class="metadata-item" *ngIf="analysisResult.metadata.recipient_email">
+                      <label>Email Destinataire:</label>
+                      <span>{{ analysisResult.metadata.recipient_email }}</span>
+                    </div>
+                    <div class="metadata-item" *ngIf="analysisResult.metadata.date">
+                      <label>Date:</label>
+                      <span>{{ analysisResult.metadata.date }}</span>
+                    </div>
+                    <div class="metadata-item" *ngIf="analysisResult.metadata.subject">
+                      <label>Objet:</label>
+                      <span>{{ analysisResult.metadata.subject }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Content Preview -->
+              <div class="result-card content-card" *ngIf="analysisResult.extracted_text">
+                <div class="card-header">
+                  <i class="fa fa-file-text-o"></i>
+                  <h3>Texte Extrait</h3>
+                </div>
+                <div class="card-content">
+                  <div class="content-preview">
+                    {{ analysisResult.extracted_text }}
+                  </div>
+                </div>
+              </div>
+              <!-- Confidence Scores -->
+              <div class="result-card confidence-card">
+                <div class="card-header">
+                  <i class="fa fa-chart-bar"></i>
+                  <h3>Scores de Confiance</h3>
+                </div>
+                <div class="card-content">
+                  <div class="confidence-grid">
+                    <div class="confidence-item" *ngIf="analysisResult.confidence_scores?.['administratif']">
+                      <label>Administratif:</label>
+                      <span class="confidence-bar">
+                        <div class="bar-fill" [style.width.%]="(analysisResult.confidence_scores?.['administratif'] || 0) * 100"></div>
+                        <span class="confidence-value">{{ ((analysisResult.confidence_scores?.['administratif'] || 0) * 100).toFixed(1) }}%</span>
+                      </span>
+                    </div>
+                    <div class="confidence-item" *ngIf="analysisResult.confidence_scores?.['médical']">
+                      <label>Médical:</label>
+                      <span class="confidence-bar">
+                        <div class="bar-fill" [style.width.%]="(analysisResult.confidence_scores?.['médical'] || 0) * 100"></div>
+                        <span class="confidence-value">{{ ((analysisResult.confidence_scores?.['médical'] || 0) * 100).toFixed(1) }}%</span>
+                      </span>
+                    </div>
+                    <div class="confidence-item" *ngIf="analysisResult.confidence_scores?.['urgence']">
+                      <label>Urgence:</label>
+                      <span class="confidence-bar">
+                        <div class="bar-fill" [style.width.%]="(analysisResult.confidence_scores?.['urgence'] || 0) * 100"></div>
+                        <span class="confidence-value">{{ ((analysisResult.confidence_scores?.['urgence'] || 0) * 100).toFixed(1) }}%</span>
+                      </span>
+                    </div>
+                    <div class="confidence-item" *ngIf="analysisResult.confidence_scores?.['normal']">
+                      <label>Normal:</label>
+                      <span class="confidence-bar">
+                        <div class="bar-fill" [style.width.%]="(analysisResult.confidence_scores?.['normal'] || 0) * 100"></div>
+                        <span class="confidence-value">{{ ((analysisResult.confidence_scores?.['normal'] || 0) * 100).toFixed(1) }}%</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+              <!-- Processing Info -->
+              <div class="result-card info-card">
+                <div class="card-header">
+                  <i class="fa fa-clock-o"></i>
+                  <h3>Informations de Traitement</h3>
+                </div>
+                <div class="card-content">
+                  <div class="info-item">
+                    <label>Fichier analysé:</label>
+                    <span>{{ analysisResult.file_info && analysisResult.file_info.filename ? analysisResult.file_info.filename : (selectedFile ? selectedFile.name : 'N/A') }}</span>
+                  </div>
+                  <div class="info-item">
+                    <label>Temps de traitement:</label>
+                    <span>{{ analysisResult.processing_time ? analysisResult.processing_time + 's' : 'N/A' }}</span>
+                  </div>
+                  <div class="info-item">
+                    <label>Taille du fichier:</label>
+                    <span>{{ analysisResult.file_info && analysisResult.file_info.size ? (analysisResult.file_info.size / 1024 / 1024).toFixed(2) + ' MB' : 'N/A' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="results-actions">
+              <button class="btn btn-success" (click)="resetAnalysis()">
+                <i class="fa fa-plus"></i>
+                Analyser un Autre Courrier
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Error Message -->
-    <div class="error-message" *ngIf="errorMessage">
-      <i class="fa fa-exclamation-triangle"></i>
-      {{ errorMessage }}
-    </div>
-
-    <!-- Loading Animation -->
-    <div class="loading-section" *ngIf="isAnalyzing">
-      <div class="loading-container">
-        <div class="loading-spinner">
-          <div class="spinner"></div>
-        </div>
-        <h3>Analyse en cours...</h3>
-        <p>L'IA analyse votre courrier, veuillez patienter</p>
-        <div class="loading-dots">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Analysis Results -->
-    <div class="results-section" *ngIf="analysisResult && !isAnalyzing">
-      <div class="results-header">
-        <h2>
-          <i class="fa fa-check-circle"></i>
-          Analyse Terminée
-        </h2>
-        <div class="confidence-badge">
-          <span class="confidence-label">Confiance:</span>
-          <span class="confidence-value">{{ (getHighestConfidence() * 100).toFixed(1) }}%</span>
-        </div>
-      </div>
-
-      <div class="results-grid">
-        <!-- Courrier Type -->
-        <div class="result-card type-card">
-          <div class="card-header">
-            <i class="fa fa-tag"></i>
-            <h3>Type de Courrier</h3>
-          </div>
-          <div class="card-content">
-            <div class="type-badge" [class]="getCourrierTypeClass(analysisResult.email_type)">
-              <i class="fa fa-file-text"></i>
-              {{ getCourrierTypeLabel(analysisResult.email_type) }}
-            </div>
-          </div>
-        </div>
-
-        <!-- Metadata -->
-        <div class="result-card metadata-card">
-          <div class="card-header">
-            <i class="fa fa-info-circle"></i>
-            <h3>Métadonnées</h3>
-          </div>
-          <div class="card-content">
-            <div class="metadata-grid">
-              <div class="metadata-item" *ngIf="analysisResult.metadata.sender_name">
-                <label>Expéditeur:</label>
-                <span>{{ analysisResult.metadata.sender_name }}</span>
-              </div>
-              <div class="metadata-item" *ngIf="analysisResult.metadata.sender_email">
-                <label>Email Expéditeur:</label>
-                <span>{{ analysisResult.metadata.sender_email }}</span>
-              </div>
-              <div class="metadata-item" *ngIf="analysisResult.metadata.recipient_name">
-                <label>Destinataire:</label>
-                <span>{{ analysisResult.metadata.recipient_name }}</span>
-              </div>
-              <div class="metadata-item" *ngIf="analysisResult.metadata.recipient_email">
-                <label>Email Destinataire:</label>
-                <span>{{ analysisResult.metadata.recipient_email }}</span>
-              </div>
-              <div class="metadata-item" *ngIf="analysisResult.metadata.date">
-                <label>Date:</label>
-                <span>{{ analysisResult.metadata.date }}</span>
-              </div>
-              <div class="metadata-item" *ngIf="analysisResult.metadata.subject">
-                <label>Objet:</label>
-                <span>{{ analysisResult.metadata.subject }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Content Preview -->
-        <div class="result-card content-card" *ngIf="analysisResult.extracted_text">
-          <div class="card-header">
-            <i class="fa fa-file-text-o"></i>
-            <h3>Texte Extrait</h3>
-          </div>
-          <div class="card-content">
-            <div class="content-preview">
-              {{ analysisResult.extracted_text }}
-            </div>
-          </div>
-        </div>
-
-        <!-- Confidence Scores -->
-        <div class="result-card confidence-card">
-          <div class="card-header">
-            <i class="fa fa-chart-bar"></i>
-            <h3>Scores de Confiance</h3>
-          </div>
-          <div class="card-content">
-            <div class="confidence-grid">
-              <div class="confidence-item" *ngIf="analysisResult.confidence_scores?.['administratif']">
-                <label>Administratif:</label>
-                <span class="confidence-bar">
-                  <div class="bar-fill" [style.width.%]="(analysisResult.confidence_scores?.['administratif'] || 0) * 100"></div>
-                  <span class="confidence-value">{{ ((analysisResult.confidence_scores?.['administratif'] || 0) * 100).toFixed(1) }}%</span>
-                </span>
-              </div>
-              <div class="confidence-item" *ngIf="analysisResult.confidence_scores?.['médical']">
-                <label>Médical:</label>
-                <span class="confidence-bar">
-                  <div class="bar-fill" [style.width.%]="(analysisResult.confidence_scores?.['médical'] || 0) * 100"></div>
-                  <span class="confidence-value">{{ ((analysisResult.confidence_scores?.['médical'] || 0) * 100).toFixed(1) }}%</span>
-                </span>
-              </div>
-              <div class="confidence-item" *ngIf="analysisResult.confidence_scores?.['urgence']">
-                <label>Urgence:</label>
-                <span class="confidence-bar">
-                  <div class="bar-fill" [style.width.%]="(analysisResult.confidence_scores?.['urgence'] || 0) * 100"></div>
-                  <span class="confidence-value">{{ ((analysisResult.confidence_scores?.['urgence'] || 0) * 100).toFixed(1) }}%</span>
-                </span>
-              </div>
-              <div class="confidence-item" *ngIf="analysisResult.confidence_scores?.['normal']">
-                <label>Normal:</label>
-                <span class="confidence-bar">
-                  <div class="bar-fill" [style.width.%]="(analysisResult.confidence_scores?.['normal'] || 0) * 100"></div>
-                  <span class="confidence-value">{{ ((analysisResult.confidence_scores?.['normal'] || 0) * 100).toFixed(1) }}%</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>  
-        
-        <!-- Processing Info -->
-        <div class="result-card info-card">
-          <div class="card-header">
-            <i class="fa fa-clock-o"></i>
-            <h3>Informations de Traitement</h3>
-          </div>
-          <div class="card-content">
-            <div class="info-item">
-              <label>Fichier analysé:</label>
-              <span>{{ analysisResult.file_info && analysisResult.file_info.filename ? analysisResult.file_info.filename : (selectedFile ? selectedFile.name : 'N/A') }}</span>
-            </div>
-            <div class="info-item">
-              <label>Temps de traitement:</label>
-              <span>{{ analysisResult.processing_time ? analysisResult.processing_time + 's' : 'N/A' }}</span>
-            </div>
-            <div class="info-item">
-              <label>Taille du fichier:</label>
-              <span>{{ analysisResult.file_info && analysisResult.file_info.size ? (analysisResult.file_info.size / 1024 / 1024).toFixed(2) + ' MB' : 'N/A' }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="results-actions">
-        <button class="btn btn-success" (click)="resetAnalysis()">
-          <i class="fa fa-plus"></i>
-          Analyser un Autre Courrier
-        </button>
-      </div>
-    </div>
+      <!-- AI Analyzer content ends here -->
+    </main>
   </div>
 </div>

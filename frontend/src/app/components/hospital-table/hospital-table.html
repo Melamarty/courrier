@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Tableau des hôpitaux</title>
 
-  <!-- If your CSS isn’t inlined, import it here -->
+  <!-- If your CSS isn't inlined, import it here -->
   <!-- <link rel="stylesheet" href="hospitaltable.css" /> -->
 
   <!-- Quick demo reset for the Tailwind-like color variables you referenced.
@@ -17,10 +17,10 @@
     <!-- Flex header -->
     <div class="table-header">
       <h2>Tableau des hôpitaux</h2>
-      <button class="add-mail-btn">
+      <a routerLink="/courrier/create" routerLinkActive="active" class="add-mail-btn">
         <span class="material-icons-outlined">add</span>
         Ajouter un courrier
-      </button>
+      </a>
     </div>
 
     <!-- Data grid -->

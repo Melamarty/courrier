@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CourrierService } from '../../services/courrier';
 import { CourrierAnalysis } from '../../models/courrier';
+import { Sidebar } from '../../components/sidebar/sidebar';
+import { Topbar } from '../../components/topbar/topbar';
 
 @Component({
   selector: 'app-model',
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, Sidebar, Topbar],
   templateUrl: './model.html',
   styleUrl: './model.css'
 })

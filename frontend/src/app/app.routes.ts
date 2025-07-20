@@ -20,10 +20,10 @@ export const routes: Routes = [
       { path: 'entrants', component: Entrants },
       {path: 'board', component: Dashboard},
       {path: 'create', component:Create },
+      { path: 'analyze', component: Model }
     ]
   },
   {path: 'dashboard', component: Dashboard, canActivate: [AuthGuard]},
-  { path: 'analyze_courrier', component: Model },
   {path: 'tests', loadComponent: () =>
       import('./pages/courrier-list/courrier-list')
         .then(m => m.CourrierListComponent)

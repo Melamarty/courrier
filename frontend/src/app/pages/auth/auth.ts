@@ -32,7 +32,7 @@ export class Auth {
           if (user.role === 'RESPO') {
             this.router.navigate(['/courrier/board']);
           } else if (user.role === 'AGENT') {
-            this.router.navigate(['/agent']);
+            this.router.navigate(['/courrier/board']);
           } else {
             alert('Unknown user role');
           }

@@ -43,8 +43,21 @@ export class Entrants implements OnInit {
   searchTerm = '';
   statusFilter = '';
 
+  // User role properties
+  currentUser: any = null;
+  isAgent = false;
+
   ngOnInit() {
+    this.getCurrentUser();
     this.getCourriers();
+  }
+
+  getCurrentUser() {
+    const userStr = sessionStorage.getItem('authUser');
+    if (userStr) {
+      this.currentUser = JSON.parse(userStr);
+      this.isAgent = this.currentUser.role === 'AGENT';
+    }
   }
 
   getCourriers() {
@@ -137,6 +150,11 @@ export class Entrants implements OnInit {
   // Helper method to check if courrier is validated
   isCourrierValidated(courrier: any): boolean {
     return courrier.type && courrier.type == 'Valider';
+  }
+
+  // Helper method to check if user can validate (only RESPO can validate)
+  canValidate(): boolean {
+    return !this.isAgent; // Only show validate button if user is not AGENT
   }
 
   deleteCourrier(courrier: any) {
