@@ -1,4 +1,4 @@
-package com.courrier;
+package com.courrier.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
