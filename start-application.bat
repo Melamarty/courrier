@@ -5,7 +5,6 @@ echo    Starting All Components...
 echo ========================================
 echo.
 
-:: Check if required tools are installed
 echo Checking prerequisites...
 where java >nul 2>&1
 if %errorlevel% neq 0 (
